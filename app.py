@@ -5,6 +5,8 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import PIL
 
+import os
+
 # Load model
 model = load_model('model.h5')
 
@@ -42,5 +44,16 @@ if uploaded_file is not None:
     predictions = model.predict(img_array)
     predicted_class = np.argmax(predictions, axis=1)
 
+
+    
+
     # Display result
     st.write(f"Predicted class: {class_names[predicted_class[0]]}")
+
+
+model_path = 'model.h5'
+if os.path.exists(model_path):
+    model = load_model(model_path)
+else:
+    st.error(f"{model_path} not found!")
+
